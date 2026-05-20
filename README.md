@@ -15,6 +15,16 @@ and runs four checks in sequence:
 If a message is flagged malicious, the pipeline short-circuits and the
 enhancement step is skipped.
 
+## Demo
+
+**Safe input** — PII is redacted and the query is enhanced for vector search:
+
+![Safe input demo](screenshots/demo_safe.png)
+
+**Malicious input** — injection attack detected and blocked before reaching the RAG system:
+
+![Blocked input demo](screenshots/demo_blocked.png)
+
 ## Architecture
 
 ```
@@ -81,12 +91,13 @@ For a malicious input the pipeline ends at `"status": "blocked"` and
 |---|---|---|---|
 | `/health` | GET | – | `{"status":"ok"}` |
 | `/guard` | POST | `{"message": "..."}` | Full `GraphState` |
+| `/ask` | POST | `{"message": "...", "upstream_url": "..."}` | Full `GraphState` + `rag_response` |
 
 ## Language support
 
 | Component | Coverage |
 |---|---|
-| Language detection | All `langdetect` languages (~55) |
+| Language detection | 55+ languages via `lingua-language-detector` |
 | PII (full NER) | `en, es, fr, de, it` — additional spaCy models can be added |
 | PII (regex fallback) | Every other language (emails, phones, cards, IPs, URLs, IBANs) |
 | Prompt injection | Any language — `gpt-4o-mini` natively multilingual |
