@@ -1,0 +1,14 @@
+langgraph
+langchain
+langchain-openai
+python-dotenv
+presidio-analyzer
+presidio-anonymizer
+spacy
+langdetect
+lingua-language-detector
+fastapi
+uvicorn[standard]
+pytest
+pytest-mock
+httpx
